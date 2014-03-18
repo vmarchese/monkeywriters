@@ -3,6 +3,14 @@
 MonkeyWriters Server project
 
 
+## Module Dependencies
+
+1. [express] (https://github.com/visionmedia/express) HTTP Server and REST API 
+2. [mongodb] (http://mongodb.github.com/node-mongodb-native/) MongoDB Connection
+3. [passport] (http://passportjs.org/) Authentication Framework
+4. [passport-http-bearer] (https://github.com/jaredhanson/passport-http-bearer) HTTP Bearer
+5. [winston] (https://github.com/flatiron/winston) Logging Framework
+
 ## Directory Structure
 ```
 --/
