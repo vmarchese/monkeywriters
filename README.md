@@ -1,6 +1,8 @@
 # MonkeyWriters README 
 
-MonkeyWriters Server project
+MonkeyWriters Server project. This is the node.js server of MonkeyWriters, implementing the basic
+authentication framework and the REST API for the project.
+
 
 
 ## Module Dependencies
