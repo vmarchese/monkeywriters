@@ -26,3 +26,24 @@ authentication framework and the REST API for the project.
   |--package.json    (Package.json file)
 ```
 
+## Configuration File Syntax
+At present a config.json file is loaded by the server with the main configuration items.
+There's probably a smarter way to do this for a multi-node installation (Zookeeper?).
+```
+{
+  "mongo":{                
+    "address":"127.0.0.1",   Mongo DB Bind address
+    "port":27017             Mongo DB Bind Port
+  },
+  "app":{
+    "address":"127.0.0.1",   MonkeyWriters Server Bind Address
+    "port":8180              MonkeyWriters Server Bind Port
+  },
+  "logger":{
+    "level":7                Not used at the moment
+  }
+
+}
+```
+
+
