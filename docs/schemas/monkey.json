@@ -17,6 +17,10 @@
   ],
   "likedstories":[
     1,2,3,4,5
-  ]
+  ],
+  /* Is it enough?*/
+  "twitter_auth_token":"xxxxxx", 
+  "facebook_auth_token":"xxxxx",
+  "pinterest_auth_token":"xxxxx"
 }
 
