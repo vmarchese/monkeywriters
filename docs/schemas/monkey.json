@@ -1,4 +1,23 @@
-/* Monkey Schema */
+/* Monkey Schema 
+  The fields 
+     followers
+     followings
+     likedstories
+  can have a very large amount of values. 
+  One solution is to use the Field selection feature in MongoDB
+  A more efficient solution would be using not embedded arrays (i.e. separate queries)
+  also to avoid the 16MB limit of MongoDB.
+  If the "embedded" solution will be adopted, the pagination on those fields
+  can be done with the $slice feature.
+
+  An even more efficient solution would be populating (and updating) those arrays with the latest
+  number (i.e.20) of entries (also using separate documents) to immediately get the lates info
+  without doing other queries. The queries on the associated tables will be done only in case
+  of further browsing of those structures.
+  e.g. The monkey asks for his followers page and the system already has the latest 20 in the 
+       Monkey document (in array "followers"). If the users browses the following pages in the
+       pagination, other queries are performed to get the next items.
+*/
 {
   "name":"Monkey",
   "surname":"Writer",
@@ -6,15 +25,18 @@
   "bio":"Short bio of the Monkey",
   "nickname":"themonkey",
   "public":false,
+  /** See above */
   "followers":[
     "dumbMonkey",
     "bonoboMonkey"
   ],
+  /** See above */
   "following":[
     "chimpanzee",
     "gorilla",
     "monkeybusiness"
   ],
+  /** See above */
   "likedstories":[
     1,2,3,4,5
   ],
