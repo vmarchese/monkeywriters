@@ -1,8 +1,22 @@
+/* Monkey Schema */
 {
   "name":"Monkey",
   "surname":"Writer",
   "e-mail":"monkey.writer@monkeywriters.org",
   "bio":"Short bio of the Monkey",
   "nickname":"themonkey",
-  "public":false
+  "public":false,
+  "followers":[
+    "dumbMonkey",
+    "bonoboMonkey"
+  ],
+  "following":[
+    "chimpanzee",
+    "gorilla",
+    "monkeybusiness"
+  ],
+  "likedstories":[
+    1,2,3,4,5
+  ]
 }
+
