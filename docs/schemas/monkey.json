@@ -1,0 +1,8 @@
+{
+  "name":"Monkey",
+  "surname":"Writer",
+  "e-mail":"monkey.writer@monkeywriters.org",
+  "bio":"Short bio of the Monkey",
+  "nickname":"themonkey",
+  "public":false
+}
