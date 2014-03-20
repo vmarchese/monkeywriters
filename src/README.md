@@ -23,9 +23,16 @@ In order to document the API:
 2. Add the module in the monkeyserver.js with a require directive
 
 
-To access the REST API Docs, download [swagger-ui] (https://github.com/wordnik/swagger-ui), follow
-the instructions to build it and point the UI to the public MonkeyWriters API Url 
-(i.e. http://&lt;server&gt;:&lt;port&gt;/api-docs)
+To access the REST API Docs: 
+
+```
+git clone https://github.com/wordnik/swagger-ui.git
+npm install
+npm run-script build
+```
+
+Open the index.html file in the dist directory and point the swagger-ui to:
+http://&lt;server&gt;:&lt;port&gt;/api-docs.
 
 
 
