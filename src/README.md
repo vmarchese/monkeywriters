@@ -19,6 +19,7 @@ authentication framework and the REST API for the project.
 ## REST API Automatic generation and Documentation
 We use the Swagger spec and swagger-node-express auto-documentation framework.
 In order to document the API:
+
 1. Build a module for each endpoint (e.g. /monkeys/info.js) swagger-compliant
 2. Add the module in the monkeyserver.js with a require directive
 
