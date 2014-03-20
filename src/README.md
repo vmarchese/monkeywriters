@@ -16,7 +16,7 @@ authentication framework and the REST API for the project.
 ## Directory Structure
 ```
 --/
-  |--server.js       (entry point)
+  |--monkeyserver.js (entry point)
   |--stories/        (REST API for Stories)
   |     |--stream.js (Example API for Stories Stream)
   |--README.md       (this file)
