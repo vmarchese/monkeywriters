@@ -31,18 +31,32 @@ module.exports =  function(app,mongo,config,swagger){
     },
     'action': function (req,res) {
 
-      var monkey;
 
-
-      if (monkey) {
-        res.send(JSON.stringify(monkey));
-      } else {
-        throw swagger.errors.notFound('monkey');
+      // Getting collection from Mongo
+      var collection = mongo.collection('monkeys');
+      if(null == collection){
+        logger.log('error',"Monkeys Collection not found. Something very wrong happened");
+        throw swagger.errors.notFound("Monkeys Collection not found. Something very wrong happened");
       }
+
+      // Searching monkey
+      logger.log('info',"Looking for monkey:",req.params.id);
+      collection.findOne({"monkeyid":req.params.id},function(err,themonkey){
+        if(err!=null){
+          logger.log('error',"Error in getting profile","err",err);
+        }
+        logger.log('debug',"Found monkey:",themonkey);
+        if (themonkey) {
+          res.send(JSON.stringify(themonkey));
+        } else {
+          throw swagger.errors.notFound('monkey');
+        }
+      });
+
     }
   };
 
+  // GET 
   swagger.addGet(info);
-
 
 };
