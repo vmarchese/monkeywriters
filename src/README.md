@@ -12,6 +12,22 @@ authentication framework and the REST API for the project.
 3. [passport] (http://passportjs.org/) Authentication Framework
 4. [passport-http-bearer] (https://github.com/jaredhanson/passport-http-bearer) HTTP Bearer
 5. [winston] (https://github.com/flatiron/winston) Logging Framework
+6. [url] (http://nodejs.org/api/url.html) node.js  URL Module
+7. [swagger-node-express] (https://github.com/wordnik/swagger-node-express) Wordnik swagger implementation for the express framework
+
+
+## REST API Automatic generation and Documentation
+We use the Swagger spec and swagger-node-express auto-documentation framework.
+In order to document the API:
+1. Build a module for each endpoint (e.g. /monkeys/info.js) swagger-compliant
+2. Add the module in the monkeyserver.js with a require directive
+
+
+To access the REST API Docs, download [swagger-ui] (https://github.com/wordnik/swagger-ui), follow
+the instructions to build it and point the UI to the public MonkeyWriters API Url 
+(i.e. http://<server>:<port>/api-docs
+
+
 
 ## Directory Structure
 ```

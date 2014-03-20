@@ -8,7 +8,10 @@
 
 // Main variables and requirements
 var express = require('express');
+var url     = require('url');
+var swagger = require('swagger-node-express');
 var config  = require('./config.json');
+
 var MongoClient = require('mongodb').MongoClient
    ,Server      = require('mongodb').Server;
 
@@ -48,9 +51,12 @@ var app = express();
 app.configure(function() {
 //  app.use(passport.initialize()); // TO BE ENABLED WHEN THE AUTHENTICATION FRAMEWORK  IS DONE
   app.use(express.bodyParser());
+  app.use(express.json());
+  app.use(express.urlencoded());
 });
 
 
+swagger.setAppHandler(app);
 
 
 // MongoDB Open and app startup. 
@@ -64,14 +70,18 @@ mongoClient.open(function(err, mongoClient) {
 
   // Reading device to collection maps
 
+
+  // REST API
+  require('./monkeys/info.js')    (app,mongo,config,swagger);
+
+
+
+  swagger.configureSwaggerPaths("", "api-docs", "")
+  swagger.configure("http://"+config.app.address+":"+config.app.port, "1.0.0");
+
   logger.log('info','Starting app on ',config.app.address,':',config.app.port);
   app.listen(config.app.port,config.app.address);
   logger.log('info','Monkey Server started! Have Fun!');
-
-  // REST API
-  // EXAMPLE:
-  // For Stories Stream see the module stories
-  // require('./stories/stream')    (app,mongo,config);
 });
 
 
