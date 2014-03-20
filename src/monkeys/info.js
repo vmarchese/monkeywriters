@@ -18,7 +18,7 @@ module.exports =  function(app,mongo,config,swagger){
 
   var info = {
     'spec': {
-      "description" : "Operations about pets",
+      "description" : "Operations about Monkeys",
       "path" : "/monkeys/info/{id}",
       "notes" : "Returns a Monkey Profile based on ID",
       "summary" : "Find Monkey by ID",
