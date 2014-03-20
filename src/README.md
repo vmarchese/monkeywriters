@@ -25,7 +25,7 @@ In order to document the API:
 
 To access the REST API Docs, download [swagger-ui] (https://github.com/wordnik/swagger-ui), follow
 the instructions to build it and point the UI to the public MonkeyWriters API Url 
-(i.e. http://&lt;server&gt;:&lt;port&gt;/api-docs
+(i.e. http://&lt;server&gt;:&lt;port&gt;/api-docs)
 
 
 
