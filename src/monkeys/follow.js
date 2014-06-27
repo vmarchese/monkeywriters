@@ -3,7 +3,7 @@
    REST URI: /monkeys/info/:id
    Parameters: 
      id: 
-   Method: GET
+   Method: POST
    Description: Returns the Monkey Info if public or an empty JSON otherwise
 */
 // Logging 
@@ -22,7 +22,7 @@ module.exports =  function(app,mongo,config,swagger){
       "path" : "/monkeys/{monkeyid}/follow/{monkeyfollowed}",
       "notes" : "Returns a Monkey Profile based on ID",
       "summary" : "Find Monkey by ID",
-      "method": "GET",
+      "method": "POST",
       "parameters" : [swagger.pathParam("monkeyid", "ID of monkey", "string"),
                       swagger.pathParam("monkeyfollowed", "ID of monkey to follow", "string")
                       ],
@@ -105,14 +105,15 @@ module.exports =  function(app,mongo,config,swagger){
                   });
                 }
 
+                // CHILD LISTS
                 logger.debug('Adding child lists');
-                followings.update({"monkeyid":follower, "monkeyfollowing":followed},{"monkeyid":follower, "monkeyfollowing":followed},{upsert:true,w:1},function(erri, resulti){
+                followings.update({"monkeyid":follower, "follows":followed},{"monkeyid":follower, "follows":followed},{upsert:true,w:1},function(erri, resulti){
                   if(erri != null){
                     res.send(500,"Error in inserting");
                   }
                   logger.log('debug','Added ',followed,' to the list of followings of ',follower);
                   // now adding to followed back
-                  followings.update({"monkeyid":followed, "monkeyfollowing":follower},{"monkeyid":followed, "monkeyfollowing":follower},{upsert:true,w:1},function(errb, resultb){
+                  followings.update({"monkeyid":followed, "followedby":follower},{"monkeyid":followed, "followedby":follower},{upsert:true,w:1},function(errb, resultb){
                     if(errb != null){
                       res.send(500,"Error in inserting");
                     }
@@ -132,7 +133,7 @@ module.exports =  function(app,mongo,config,swagger){
     }
   };
 
-  swagger.addGet(info);
+  swagger.addPost(info);
 
 };
 
