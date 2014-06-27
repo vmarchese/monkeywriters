@@ -3,7 +3,7 @@
    REST URI: /monkeys/info/:id
    Parameters: 
      id: 
-   Method: GET
+   Method: POST
    Description: Returns the Monkey Info if public or an empty JSON otherwise
 */
 // Logging 
@@ -22,7 +22,7 @@ module.exports =  function(app,mongo,config,swagger){
       "path" : "/monkeys/{monkeyid}/unfollow/{monkeyunfollowed}",
       "notes" : "Unfollows a Monkey",
       "summary" : "Unfollows a Monkey ",
-      "method": "GET",
+      "method": "POST",
       "parameters" : [swagger.pathParam("monkeyid", "ID of monkey", "string"),
                       swagger.pathParam("monkeyunfollowed", "ID of monkey to unfollow", "string")
                       ],
@@ -132,7 +132,7 @@ module.exports =  function(app,mongo,config,swagger){
     }
   };
 
-  swagger.addGet(info);
+  swagger.addPost(info);
 
 };
 
