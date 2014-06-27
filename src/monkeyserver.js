@@ -68,11 +68,15 @@ mongoClient.open(function(err, mongoClient) {
   logger.log('info','Connection opened');
   mongo = db;
 
-  // Reading device to collection maps
 
 
   // REST API
-  require('./monkeys/info.js')    (app,mongo,config,swagger);
+  require('./monkeys/info.js')      (app,mongo,config,swagger);
+  require('./monkeys/search.js')    (app,mongo,config,swagger);
+  require('./monkeys/follow.js')    (app,mongo,config,swagger);
+  require('./monkeys/unfollow.js')  (app,mongo,config,swagger);
+  require('./monkeys/followers.js') (app,mongo,config,swagger);
+  require('./monkeys/followings.js') (app,mongo,config,swagger);
 
 
 

@@ -4,7 +4,6 @@
   "version":"1.0.0",
   "author":"Inpartesenzarte <inpartesenzarte@gmail.com>",
   "description":"Main server for MonkeyWriters REST API",
-  "main":"./server.js",
   "contributors":[
     { "name":"Alessandro Quadraccia", "email":"xxx@xxx.com"},
     { "name":"Glauco Ippolitoni", "email":"xxx@xxx.com" }
