@@ -71,12 +71,15 @@ mongoClient.open(function(err, mongoClient) {
 
 
   // REST API
-  require('./monkeys/info.js')      (app,mongo,config,swagger);
-  require('./monkeys/search.js')    (app,mongo,config,swagger);
-  require('./monkeys/follow.js')    (app,mongo,config,swagger);
-  require('./monkeys/unfollow.js')  (app,mongo,config,swagger);
-  require('./monkeys/followers.js') (app,mongo,config,swagger);
+  require('./monkeys/info.js')       (app,mongo,config,swagger);
+  require('./monkeys/search.js')     (app,mongo,config,swagger);
+  require('./monkeys/follow.js')     (app,mongo,config,swagger);
+  require('./monkeys/unfollow.js')   (app,mongo,config,swagger);
+  require('./monkeys/followers.js')  (app,mongo,config,swagger);
   require('./monkeys/followings.js') (app,mongo,config,swagger);
+  require('./monkeys/block.js')      (app,mongo,config,swagger);
+  require('./monkeys/unblock.js')    (app,mongo,config,swagger);
+  require('./monkeys/blockedby.js')  (app,mongo,config,swagger);
 
 
 

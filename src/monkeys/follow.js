@@ -61,6 +61,12 @@ module.exports =  function(app,mongo,config,swagger){
         throw swagger.errors.notFound("monkeyfollowings Collection not found. Something very wrong happened");
       }
 
+      var blocks = mongo.collection('monkeyblocks');
+      if(null == blocks){
+        logger.log('error',"monkeyblocks Collection not found. Something very wrong happened");
+        throw swagger.errors.notFound("monkeyblocks Collection not found. Something very wrong happened");
+      }
+
       // Searching monkey
       logger.log('info',"Looking for monkey:",follower);
 
@@ -80,47 +86,56 @@ module.exports =  function(app,mongo,config,swagger){
               if(monkeyfollowed){
                 //  Found MONKEY TOBEFOLLOWED
                 logger.log('debug',"Found monkey to be followed:",monkeyfollowed);
-                
-                // UPDATING INTERNAL LISTS
-                if(monkeyfollower.following.length < 20){
-                  logger.log('debug','Followings is < 20... should update internal list too for ',monkeyfollower.monkeyid);
-                  monkeyfollower.following[monkeyfollower.following.length] = monkeyfollowed.monkeyid;
-                  // Updating cache list and ignoring on errors
-                  collection.update({"monkeyid":follower},monkeyfollower,function(err,result){
-                     // ignore on errors
-                     if(err != null){
-                       logger.log('warn','Error in updating internal list');
-                     }
-                  });
-                }
-                if(monkeyfollowed.followers.length < 20){
-                  logger.log('debug','Followers is < 20... should update internal list too for ',monkeyfollowed.monkeyid);
-                  monkeyfollowed.followers[monkeyfollowed.followers.length] = monkeyfollower.monkeyid;
-                  // Updating cache list and ignoring on errors
-                  collection.update({"monkeyid":followed},monkeyfollowed,function(err,result){
-                     // ignore on errors
-                     if(err != null){
-                       logger.log('warn','Error in updating internal list');
-                     }
-                  });
-                }
 
-                // CHILD LISTS
-                logger.debug('Adding child lists');
-                followings.update({"monkeyid":follower, "follows":followed},{"monkeyid":follower, "follows":followed},{upsert:true,w:1},function(erri, resulti){
-                  if(erri != null){
-                    res.send(500,"Error in inserting");
-                  }
-                  logger.log('debug','Added ',followed,' to the list of followings of ',follower);
-                  // now adding to followed back
-                  followings.update({"monkeyid":followed, "followedby":follower},{"monkeyid":followed, "followedby":follower},{upsert:true,w:1},function(errb, resultb){
-                    if(errb != null){
-                      res.send(500,"Error in inserting");
+                // Ckecking that is not blocked
+                blocks.findOne({"monkeyid":followed,"blocks":follower},function(errf,block){
+                  if(block){
+                    logger.log("error","Monkey:",follower," is blocked by ",followed);
+                    res.send(404,JSON.stringify('Monkey:'+follower+' is blocked by '+followed));
+                  }else{
+                
+                    // UPDATING INTERNAL LISTS
+                    if(monkeyfollower.following.length < 20){
+                      logger.log('debug','Followings is < 20... should update internal list too for ',monkeyfollower.monkeyid);
+                      monkeyfollower.following[monkeyfollower.following.length] = monkeyfollowed.monkeyid;
+                      // Updating cache list and ignoring on errors
+                      collection.update({"monkeyid":follower},monkeyfollower,function(err,result){
+                         // ignore on errors
+                         if(err != null){
+                           logger.log('warn','Error in updating internal list');
+                         }
+                      });
                     }
-                    logger.log('debug','Added ',follower,' to the list of followed of ',followed);
-                  });
+                    if(monkeyfollowed.followers.length < 20){
+                      logger.log('debug','Followers is < 20... should update internal list too for ',monkeyfollowed.monkeyid);
+                      monkeyfollowed.followers[monkeyfollowed.followers.length] = monkeyfollower.monkeyid;
+                      // Updating cache list and ignoring on errors
+                      collection.update({"monkeyid":followed},monkeyfollowed,function(err,result){
+                         // ignore on errors
+                         if(err != null){
+                           logger.log('warn','Error in updating internal list');
+                         }
+                      });
+                    }
+                    
+                    // CHILD LISTS
+                    logger.debug('Adding child lists');
+                    followings.update({"monkeyid":follower, "follows":followed},{"monkeyid":follower, "follows":followed},{upsert:true,w:1},function(erri, resulti){
+                      if(erri != null){
+                        res.send(500,"Error in inserting");
+                      }
+                      logger.log('debug','Added ',followed,' to the list of followings of ',follower);
+                      // now adding to followed back
+                      followings.update({"monkeyid":followed, "followedby":follower},{"monkeyid":followed, "followedby":follower},{upsert:true,w:1},function(errb, resultb){
+                        if(errb != null){
+                          res.send(500,"Error in inserting");
+                        }
+                        logger.log('debug','Added ',follower,' to the list of followed of ',followed);
+                      });
+                    });
+                    res.send(JSON.stringify('ok'));
+                  }
                 });
-                res.send(JSON.stringify('ok'));
               }else{
                 res.send(404,JSON.stringify("Could not find Monkey:"+followed));
               }
