@@ -1,0 +1,254 @@
+{
+  "url":"http://127.0.0.1:8380",
+  "monkeyfollower":"bonobo",
+  "monkeyfollowed":"gorilla",
+  "mongo":{
+    "address":"127.0.0.1",
+    "port":27017
+  },
+  "monkeys":[{
+    "name":"Bonobo",
+    "surname":"Monkey",
+    "e-mail":"bonobo.monkey@monkeywriters.org",
+    "bio":"Make sex not war! We enjoy life man",
+    "monkeyid":"bonobo",
+    "public":false,
+    "followers":[
+    ],
+    "following":[
+    ],
+    "likedstories":[
+      1,2,3,4,5
+    ],
+    "stories":[
+      1,2,3,4,5
+    ],
+    "twitter_auth_token":"xxxxxx", 
+    "facebook_auth_token":"xxxxx",
+    "pinterest_auth_token":"xxxxx"
+  },
+  {
+    "name":"Gorilla",
+    "surname":"Magilla",
+    "e-mail":"magilla.gorilla@monkeywriters.org",
+    "bio":"Such a megillah over a gorilla.",
+    "monkeyid":"gorilla",
+    "public":false,
+    "followers":[
+    ],
+    "following":[
+    ],
+    "likedstories":[
+      1,2,3,4,5
+    ],
+    "stories":[
+      1,2,3,4,5
+    ],
+    "twitter_auth_token":"xxxxxx", 
+    "facebook_auth_token":"xxxxx",
+    "pinterest_auth_token":"xxxxx"
+  },
+ {
+  "name":"Chimpan",
+  "surname":"Zee",
+  "e-mail":"chimpan.zee@monkeywriters.org",
+  "bio":"The least I can do is speak out for the hundreds of chimpanzees who, right now, sit hunched, miserable and without hope, staring out with dead eyes from their metal prisons. They cannot speak for themselves.",
+  "monkeyid":"chimpanzee",
+  "public":false,
+  "followers":[
+  ],
+  "following":[
+  ],
+  "likedstories":[
+    1,2,3,4,5
+  ],
+  "stories":[
+    1,2,3,4,5
+  ],
+  "twitter_auth_token":"xxxxxx", 
+  "facebook_auth_token":"xxxxx",
+  "pinterest_auth_token":"xxxxx"
+},
+{
+  "name":"Bab",
+  "surname":"Oon",
+  "e-mail":"bab.oon@monkeywriters.org",
+  "bio":"There once was a brainy baboon who always breathed down a bassoon for he said, 'It appears that in billions of years I shall certainly hit on a tune.'",
+  "monkeyid":"baboon",
+  "public":false,
+  "followers":[
+  ],
+  "following":[
+  ],
+  "likedstories":[
+    1,2,3,4,5
+  ],
+  "stories":[
+    1,2,3,4,5
+  ],
+  "twitter_auth_token":"xxxxxx", 
+  "facebook_auth_token":"xxxxx",
+  "pinterest_auth_token":"xxxxx"
+},
+{
+  "name":"Mc",
+  "surname":"Aque",
+  "e-mail":"mac.aque@monkeywriters.org",
+  "bio":"Mc Aque bio",
+  "monkeyid":"macaque",
+  "public":false,
+  "followers":[
+  ],
+  "following":[
+  ],
+  "likedstories":[
+    1,2,3,4,5
+  ],
+  "stories":[
+    1,2,3,4,5
+  ],
+  "twitter_auth_token":"xxxxxx", 
+  "facebook_auth_token":"xxxxx",
+  "pinterest_auth_token":"xxxxx"
+},
+{
+  "name":"Man",
+  "surname":"Drill",
+  "e-mail":"man.drill@monkeywriters.org",
+  "bio":"Yeah... I know what they say... I just have a thing with chicks.",
+  "monkeyid":"mandrill",
+  "public":false,
+  "followers":[
+  ],
+  "following":[
+  ],
+  "likedstories":[
+    1,2,3,4,5
+  ],
+  "stories":[
+    1,2,3,4,5
+  ],
+  "twitter_auth_token":"xxxxxx", 
+  "facebook_auth_token":"xxxxx",
+  "pinterest_auth_token":"xxxxx"
+},
+{
+  "name":"Cap",
+  "surname":"Uchin",
+  "e-mail":"cap.uchin@monkeywriters.org",
+  "bio":"Hot, with foam and biscuits on the side",
+  "monkeyid":"capuchin",
+  "public":false,
+  "followers":[
+  ],
+  "following":[
+  ],
+  "likedstories":[
+    1,2,3,4,5
+  ],
+  "stories":[
+    1,2,3,4,5
+  ],
+  "twitter_auth_token":"xxxxxx", 
+  "facebook_auth_token":"xxxxx",
+  "pinterest_auth_token":"xxxxx"
+},
+{
+  "name":"How",
+  "surname":"Ler",
+  "e-mail":"how.ler@monkeywriters.org",
+  "bio":"Shout! Shout! Let it all out",
+  "monkeyid":"howler",
+  "public":false,
+  "followers":[
+  ],
+  "following":[
+  ],
+  "likedstories":[
+    1,2,3,4,5
+  ],
+  "stories":[
+    1,2,3,4,5
+  ],
+  "twitter_auth_token":"xxxxxx", 
+  "facebook_auth_token":"xxxxx",
+  "pinterest_auth_token":"xxxxx"
+},
+{
+  "name":"Gib",
+  "surname":"bon",
+  "e-mail":"gib.bon@monkeywriters.org",
+  "bio":"Short bio of the Gibbon",
+  "monkeyid":"gibbon",
+  "public":false,
+  "followers":[
+  ],
+  "following":[
+  ],
+  "likedstories":[
+    1,2,3,4,5
+  ],
+  "stories":[
+    1,2,3,4,5
+  ],
+  "twitter_auth_token":"xxxxxx", 
+  "facebook_auth_token":"xxxxx",
+  "pinterest_auth_token":"xxxxx"
+},
+{
+  "name":"Lem",
+  "surname":"ur",
+  "e-mail":"lem.ur@monkeywriters.org",
+  "bio":"I like to move it, move it",
+  "monkeyid":"lemur",
+  "public":false,
+  "followers":[
+  ],
+  "following":[
+  ],
+  "likedstories":[
+    1,2,3,4,5
+  ],
+  "stories":[
+    1,2,3,4,5
+  ],
+  "twitter_auth_token":"xxxxxx", 
+  "facebook_auth_token":"xxxxx",
+  "pinterest_auth_token":"xxxxx"
+},
+{
+  "name":"Oran",
+  "surname":"Gutan",
+  "e-mail":"oran.gutan@monkeywriters.org",
+  "bio":"Short bio of the Orangutan",
+  "monkeyid":"orangutan",
+  "public":false,
+  "followers":[
+  ],
+  "following":[
+  ],
+  "likedstories":[
+    1,2,3,4,5
+  ],
+  "stories":[
+    1,2,3,4,5
+  ],
+  "twitter_auth_token":"xxxxxx", 
+  "facebook_auth_token":"xxxxx",
+  "pinterest_auth_token":"xxxxx"
+ }
+],
+"followings":[
+  {"monkeyid":"gorilla", "followedby":"lemur"},
+  {"monkeyid":"lemur", "follows":"gorilla"}
+],
+"blocks":[
+  {"monkeyid":"gorilla", "blocks":"orangutan"},
+  {"monkeyid":"bonobo", "blocks":"lemur"}
+],
+"monkeyfollower":"bonobo",
+"monkeyfollowed":"gorilla",
+"monkeyunfollower":"lemur"
+
+
+}

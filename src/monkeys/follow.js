@@ -80,7 +80,7 @@ module.exports =  function(app,mongo,config,swagger){
           logger.log('info',"Following monkey:",followed);
           collection.findOne({"monkeyid":followed},function(err,monkeyfollowed){
               if(err != null){
-                res.send(500,"Error in inserting");
+                res.send(500,JSON.stringify("Error in inserting"));
               }
               // Found monkey... now follow 
               if(monkeyfollowed){
@@ -94,46 +94,47 @@ module.exports =  function(app,mongo,config,swagger){
                     res.send(404,JSON.stringify('Monkey:'+follower+' is blocked by '+followed));
                   }else{
                 
-                    // UPDATING INTERNAL LISTS
-                    if(monkeyfollower.following.length < 20){
-                      logger.log('debug','Followings is < 20... should update internal list too for ',monkeyfollower.monkeyid);
-                      monkeyfollower.following[monkeyfollower.following.length] = monkeyfollowed.monkeyid;
-                      // Updating cache list and ignoring on errors
-                      collection.update({"monkeyid":follower},monkeyfollower,function(err,result){
-                         // ignore on errors
-                         if(err != null){
-                           logger.log('warn','Error in updating internal list');
-                         }
-                      });
-                    }
-                    if(monkeyfollowed.followers.length < 20){
-                      logger.log('debug','Followers is < 20... should update internal list too for ',monkeyfollowed.monkeyid);
-                      monkeyfollowed.followers[monkeyfollowed.followers.length] = monkeyfollower.monkeyid;
-                      // Updating cache list and ignoring on errors
-                      collection.update({"monkeyid":followed},monkeyfollowed,function(err,result){
-                         // ignore on errors
-                         if(err != null){
-                           logger.log('warn','Error in updating internal list');
-                         }
-                      });
-                    }
-                    
                     // CHILD LISTS
                     logger.debug('Adding child lists');
                     followings.update({"monkeyid":follower, "follows":followed},{"monkeyid":follower, "follows":followed},{upsert:true,w:1},function(erri, resulti){
                       if(erri != null){
-                        res.send(500,"Error in inserting");
+                        res.send(500,JSON.stringify("Error in inserting"));
                       }
                       logger.log('debug','Added ',followed,' to the list of followings of ',follower);
                       // now adding to followed back
                       followings.update({"monkeyid":followed, "followedby":follower},{"monkeyid":followed, "followedby":follower},{upsert:true,w:1},function(errb, resultb){
                         if(errb != null){
-                          res.send(500,"Error in inserting");
+                          res.send(500,JSON.stringify("Error in inserting"));
                         }
                         logger.log('debug','Added ',follower,' to the list of followed of ',followed);
+
+                         // UPDATING INTERNAL LISTS
+                         if(monkeyfollower.following.length < 20){
+                           logger.log('debug','Followings is < 20... should update internal list too for ',monkeyfollower.monkeyid);
+                           monkeyfollower.following[monkeyfollower.following.length] = monkeyfollowed.monkeyid;
+                           // Updating cache list and ignoring on errors
+                           collection.update({"monkeyid":follower},monkeyfollower,function(err,result){
+                              // ignore on errors
+                              if(err != null){
+                                logger.log('warn','Error in updating internal list');
+                              }
+                           });
+                         }
+                         if(monkeyfollowed.followers.length < 20){
+                           logger.log('debug','Followers is < 20... should update internal list too for ',monkeyfollowed.monkeyid);
+                           monkeyfollowed.followers[monkeyfollowed.followers.length] = monkeyfollower.monkeyid;
+                           // Updating cache list and ignoring on errors
+                           collection.update({"monkeyid":followed},monkeyfollowed,function(err,result){
+                              // ignore on errors
+                              if(err != null){
+                                logger.log('warn','Error in updating internal list');
+                              }
+                           });
+                         }
                       });
+                      res.send(200,JSON.stringify('ok'));
                     });
-                    res.send(JSON.stringify('ok'));
+                    
                   }
                 });
               }else{

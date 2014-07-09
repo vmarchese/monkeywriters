@@ -9,7 +9,8 @@
     { "name":"Glauco Ippolitoni", "email":"xxx@xxx.com" }
   ],
   "scripts":{
-    "start":"node monkeyserver"
+    "start":"node monkeyserver",
+    "test":"make test"
   },
   "main":"./monkeyserver.js",
   "repository": {
@@ -23,7 +24,11 @@
     "url":"0.7.x",
     "swagger-node-express":"2.0.x",
     "passport":"0.2.x",
-    "passport-http-bearer":"1.0.x"
+    "passport-http-bearer":"1.0.x",
+    "mocha":"1.20.x",
+    "assert":"1.1.x",
+    "should":"4.0.x",
+    "supertest":"0.13.x"
   }
 
 }

@@ -81,28 +81,6 @@ module.exports =  function(app,mongo,config,swagger){
                 //  Found MONKEY TOBEFOLLOWED
                 logger.log('debug',"Found monkey to be unfollowed:",monkeyunfollowed);
                 
-                // UPDATING INTERNAL LISTS
-                var ifollowed = monkeyfollower.following.indexOf(unfollowed);
-                if(ifollowed != -1){
-                  monkeyfollower.following.splice(ifollowed,1);
-                }
-
-                var ifollower = monkeyunfollowed.followers.indexOf(follower);
-                if(ifollower != -1){
-                  monkeyunfollowed.followers.splice(ifollower,1);
-                }
-                collection.update({"monkeyid":follower},monkeyfollower,function(err,result){
-                   // ignore on errors
-                   if(err != null){
-                     logger.log('warn','Error in updating internal list');
-                   }
-                });
-                collection.update({"monkeyid":unfollowed},monkeyunfollowed,function(err,result){
-                   // ignore on errors
-                   if(err != null){
-                     logger.log('warn','Error in updating internal list');
-                   }
-                });
 
                 // REMOVING FROM CHILD LISTS
                 logger.debug('Removing from child lists');
@@ -117,9 +95,34 @@ module.exports =  function(app,mongo,config,swagger){
                       res.send(500,"Error in removing");
                     }
                     logger.log('debug','Removed ',follower,' to the list of followed of ',unfollowed);
+
+                     // UPDATING INTERNAL LISTS
+                     var ifollowed = monkeyfollower.following.indexOf(unfollowed);
+                     if(ifollowed != -1){
+                       monkeyfollower.following.splice(ifollowed,1);
+                     }
+                     
+                     var ifollower = monkeyunfollowed.followers.indexOf(follower);
+                     if(ifollower != -1){
+                       monkeyunfollowed.followers.splice(ifollower,1);
+                     }
+                     collection.update({"monkeyid":follower},monkeyfollower,function(err,result){
+                        // ignore on errors
+                        if(err != null){
+                          logger.log('warn','Error in updating internal list');
+                        }
+                     });
+                     collection.update({"monkeyid":unfollowed},monkeyunfollowed,function(err,result){
+                        // ignore on errors
+                        if(err != null){
+                          logger.log('warn','Error in updating internal list');
+                        }
+                     });
+
                   });
+
+                  res.send(JSON.stringify('ok'));
                 });
-                res.send(JSON.stringify('ok'));
               }else{
                 res.send(404,JSON.stringify("Could not find Monkey:"+unfollowed));
               }
