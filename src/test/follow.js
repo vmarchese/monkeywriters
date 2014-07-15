@@ -16,9 +16,12 @@ var logger = new (winston.Logger)({
 
 describe('Monkeys', function() {
   var url    = config.url;
-  var monkeyfollower = config.monkeyfollower;
-  var monkeyfollowed = config.monkeyfollowed;
+  var monkeyfollower   = config.monkeyfollower;
+  var monkeyfollowed   = config.monkeyfollowed;
   var monkeyunfollower = config.monkeyunfollower;
+  var monkeyblocker    = config.monkeyblocker;
+  var monkeyblocked    = config.monkeyblocked;
+  var monkeytoblock    = config.monkeytoblock;
 
   beforeEach(function(done) {
     mongoClient.open(function(err, mongoClient) {
@@ -79,6 +82,26 @@ describe('Monkeys', function() {
           res.body.monkeyid.should.equal(monkeyfollower);
           res.body.should.have.property('name');
           res.body.should.have.property('surname');
+          done();
+        });
+    });
+  });
+
+  // SEARCH 
+  describe('Search',function(){
+    it("should get correct list of monkeys with string 'le' in the query string" ,function(done){
+      var path = "/monkeys/search/le";
+      request(url)
+        .get(path)
+        .set('Accept', 'application/json')
+        .expect('Content-type', /json/)
+        .expect(200)
+        .end(function(err,res){
+          if (err){
+            return done(err);
+          }
+
+          res.body.should.containDeep([{"monkeyid":"lemur"},{"monkeyid":"howler"}]);
           done();
         });
     });
@@ -178,6 +201,121 @@ describe('Monkeys', function() {
         });
     });
   });
+
+  // BLOCK 
+  describe('Block',function(){
+    it('should have monkey '+monkeyblocker+' block monkey '+monkeytoblock, function(done){
+      var blockpath     = "/monkeys/"+monkeyblocker+"/block/"+monkeytoblock;
+      var blockedbypath = "/monkeys/"+monkeyblocker+"/blockedby";
+      // follow
+      request(url)
+        .post(blockpath)
+        .set('Accept', 'application/json')
+        .expect('Content-type', /json/)
+        .expect(200)
+        .end(function(err,res){ 
+          if (err){
+            return done(err);
+          }
+          // checking followers
+          request(url)
+            .get(blockedbypath)
+            .set('Accept', 'application/json')
+            .expect('Content-type', /json/)
+            .expect(200)
+            .end(function(err,res){
+              if (err){
+                 return done(err);
+              }
+              res.body.should.containDeep([{"monkeyid":monkeyblocker,"blocks":monkeytoblock}]);
+
+              done();
+            });
+        });
+    });
+  });
+
+  // Check Block
+  describe('Check Block',function(){
+    it('should forbid '+monkeyblocked+' to follow '+monkeyblocker,function(done){
+      var followpath = "/monkeys/"+monkeyblocked+"/follow/"+monkeyblocker;
+
+      request(url)
+       .post(followpath)
+       .set('Accept', 'application/json')
+       .expect('Content-type', /json/)
+       .expect(404)
+       .end(function(err,res){
+          if (err){
+            return done(err);
+          }
+          done();
+       });
+
+    });
+  });
+
+  // Check unblock
+  describe('Check Unblock',function(){
+    it('should permit to '+monkeyblocked+' to follow '+monkeyblocker+' after explicit unblocking',function(done){
+      var followpath     = "/monkeys/"+monkeyblocked+"/follow/"+monkeyblocker;
+      var unblockpath    = "/monkeys/"+monkeyblocker+"/unblock/"+monkeyblocked;
+      var followerspath  = "/monkeys/"+monkeyblocker+"/followers";
+      var followingspath = "/monkeys/"+monkeyblocked+"/followings";
+
+      request(url)
+       .post(unblockpath)
+       .set('Accept', 'application/json')
+       .expect('Content-type', /json/)
+       .expect(200)
+       .end(function(err,res){
+          if (err){
+            return done(err);
+          }
+
+          request(url)
+            .post(followpath)
+            .set('Accept', 'application/json')
+            .expect('Content-type', /json/)
+            .expect(200)
+            .end(function(err,res){ 
+              if (err){
+                return done(err);
+              }
+              // checking followers
+              request(url)
+                .get(followerspath)
+                .set('Accept', 'application/json')
+                .expect('Content-type', /json/)
+                .expect(200)
+                .end(function(err,res){
+                  if (err){
+                     return done(err);
+                  }
+                  res.body.should.containDeep([{"monkeyid":monkeyblocker,"followedby":monkeyblocked}]);
+          
+                  //checking followings
+                  request(url)
+                    .get(followingspath)
+                    .set('Accept', 'application/json')
+                    .expect('Content-type', /json/)
+                    .expect(200)
+                    .end(function(err,res){
+                      if (err){
+                         return done(err);
+                      }
+                      res.body.should.containDeep([{"monkeyid":monkeyblocker,"followedby":monkeyblocked}]);
+          
+                      done();
+                    });
+                });
+            });
+       });
+    });
+  });
+
+
+
 
 });
 

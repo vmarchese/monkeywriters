@@ -243,12 +243,14 @@
   {"monkeyid":"lemur", "follows":"gorilla"}
 ],
 "blocks":[
-  {"monkeyid":"gorilla", "blocks":"orangutan"},
-  {"monkeyid":"bonobo", "blocks":"lemur"}
+  {"monkeyid":"gorilla", "blocks":"orangutan"}
 ],
 "monkeyfollower":"bonobo",
 "monkeyfollowed":"gorilla",
-"monkeyunfollower":"lemur"
+"monkeyunfollower":"lemur",
+"monkeyblocked":"orangutan",
+"monkeyblocker":"gorilla",
+"monkeytoblock":"gibbon"
 
 
 }
