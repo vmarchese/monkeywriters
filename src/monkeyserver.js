@@ -71,6 +71,7 @@ mongoClient.open(function(err, mongoClient) {
 
 
   // REST API
+  // MONKEYS
   require('./monkeys/info.js')       (app,mongo,config,swagger);
   require('./monkeys/search.js')     (app,mongo,config,swagger);
   require('./monkeys/follow.js')     (app,mongo,config,swagger);
@@ -80,6 +81,8 @@ mongoClient.open(function(err, mongoClient) {
   require('./monkeys/block.js')      (app,mongo,config,swagger);
   require('./monkeys/unblock.js')    (app,mongo,config,swagger);
   require('./monkeys/blockedby.js')  (app,mongo,config,swagger);
+  // STORIES
+  require('./stories/publish.js')    (app,mongo,config,swagger);
 
 
 
